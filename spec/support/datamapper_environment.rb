@@ -6,7 +6,7 @@ require 'machinist/datamapper'
 
 DataMapper.setup(:default, 'sqlite::memory:')
 
-module DM
+module DataMapperEnvironment
 
   class User
     include DataMapper::Resource
@@ -45,7 +45,7 @@ module DM
     has n, :posts, :through => Resource
   end
 
-  def empty_database!
+  def self.empty_database!
     DataMapper.auto_migrate!
     [User, Post, Comment].each do |klass|
       klass.clear_blueprints!
